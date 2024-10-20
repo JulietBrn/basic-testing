@@ -30,7 +30,7 @@ describe('simpleCalculator tests', () => {
     const result = simpleCalculator({
       a: 2,
       b: 2,
-      action: Action.Exponentiate
+      action: Action.Exponentiate,
     });
 
     expect(result).toBe(4);
@@ -43,7 +43,11 @@ describe('simpleCalculator tests', () => {
   });
 
   test('should return null for invalid arguments', () => {
-    const result = simpleCalculator({ a: '15', b: 'hello', action: Action.Divide });
+    const result = simpleCalculator({
+      a: '15',
+      b: 'hello',
+      action: Action.Divide,
+    });
 
     expect(result).toBeNull();
   });

@@ -1,7 +1,11 @@
 // Uncomment the code below and write your tests
-import { BankAccount, getBankAccount, InsufficientFundsError, SynchronizationFailedError } from '.';
+import {
+  BankAccount,
+  getBankAccount,
+  InsufficientFundsError,
+  SynchronizationFailedError,
+} from '.';
 import { random } from 'lodash';
-
 
 jest.mock('lodash', () => ({
   random: jest.fn(),
@@ -13,7 +17,7 @@ describe('BankAccount', () => {
 
   beforeEach(() => {
     account = getBankAccount(defaultBalance);
-  })
+  });
 
   test('should create account with initial balance', () => {
     account = getBankAccount(200);
@@ -21,16 +25,19 @@ describe('BankAccount', () => {
   });
 
   test('should throw InsufficientFundsError error when withdrawing more than balance', () => {
-    expect(() => account.withdraw(defaultBalance + 150)).toThrow(InsufficientFundsError);
+    expect(() => account.withdraw(defaultBalance + 150)).toThrow(
+      InsufficientFundsError,
+    );
   });
 
   test('should throw error when transferring more than balance', () => {
-    expect(() => account.withdraw(defaultBalance + 150)).toThrow('Insufficient funds: cannot withdraw more than ')
-
+    expect(() => account.withdraw(defaultBalance + 150)).toThrow(
+      'Insufficient funds: cannot withdraw more than ',
+    );
   });
 
   test('should throw error when transferring to the same account', () => {
-    expect(() => account.transfer(10, account)).toThrow('Transfer failed')
+    expect(() => account.transfer(10, account)).toThrow('Transfer failed');
   });
 
   test('should deposit money', () => {
@@ -57,7 +64,9 @@ describe('BankAccount', () => {
     const mockBalance = 100;
     const requestMock = 1;
 
-    (random as jest.Mock).mockReturnValueOnce(mockBalance).mockReturnValueOnce(requestMock);
+    (random as jest.Mock)
+      .mockReturnValueOnce(mockBalance)
+      .mockReturnValueOnce(requestMock);
 
     const result = await account.fetchBalance();
     expect(result).toBe(mockBalance);
@@ -75,7 +84,9 @@ describe('BankAccount', () => {
     const mockBalance = null;
 
     jest.spyOn(account, 'fetchBalance').mockResolvedValueOnce(mockBalance);
-    
-    await expect(account.synchronizeBalance()).rejects.toThrow(SynchronizationFailedError);
+
+    await expect(account.synchronizeBalance()).rejects.toThrow(
+      SynchronizationFailedError,
+    );
   });
 });

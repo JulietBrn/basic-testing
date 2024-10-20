@@ -1,8 +1,9 @@
 // Uncomment the code below and write your tests
 import { unmockedFunction, mockOne, mockTwo, mockThree } from './index';
-// 
+//
 jest.mock('./index', () => {
-  const originalModule = jest.requireActual<typeof import('./index')>('./index');
+  const originalModule =
+    jest.requireActual<typeof import('./index')>('./index');
 
   return {
     __esModule: true,
